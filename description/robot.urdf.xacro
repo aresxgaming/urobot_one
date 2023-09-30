@@ -1,7 +1,10 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
 
-    <!-- Example link -->
-    <link name="base_link"></link>
+    <!-- In questo file andremo a richiamare tutti gli altri file URDF che contengono le varie parti del robot-->
+
+    <!-- Con questa riga di codice stiamo richiamando il file che contiene la struttura di base -->
+    <xacro:include filename="robot_core.xacro" />
+    
 
 </robot>
