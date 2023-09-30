@@ -26,6 +26,10 @@
         <color rgba="0 0 0 1" />
     </material>
 
+    <material name="red">
+        <color rgba="1 0 0 1" />
+    </material>
+
 
     <!-- Adesso iniziamo la sezione dove decriviamo i link che avrà il nostro robot, 
          per convenzione stabiliamo che il primo link venga chiamato "base_link"      -->

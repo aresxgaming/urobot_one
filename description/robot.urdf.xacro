@@ -12,4 +12,8 @@
 
     <xacro:include filename="gazebo_control.xacro"/>
 
+
+    <!-- Inseriamo il file che si occuperà di far funzionare il sensore LIDAR sul nostro robot simulato -->
+    <xacro:include filename="lidar.xacro"/>
+
 </robot>
