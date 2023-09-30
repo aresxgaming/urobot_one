@@ -7,4 +7,9 @@
     <xacro:include filename="robot_core.xacro" />
     
 
+    <!-- Con questa riga andremo ad includere il file che contiene le righe di codice per utilizzare il controllo 
+         di Gazebo -->
+
+    <xacro:include filename="gazebo_control.xacro"/>
+
 </robot>
