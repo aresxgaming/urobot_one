@@ -37,7 +37,7 @@
             <!-- aggiungiamo il tag sensor di tipo "ray" quindi che indica un sensore simulato -->
             <sensor name="laser" type="ray">
                 <pose>0 0 0 0 0 0 </pose>   <!-- questo indica che la posizione del sensore è uguale a quella del link -->
-                <visualize>true</visualize> <!-- serve per abilitare la visualizzazione in gazebo -->
+                <visualize>false</visualize> <!-- serve per abilitare la visualizzazione in gazebo -->
                 <update_rate>10</update_rate> <!-- espresso in secondi -->
 
                 <!-- il ray tag serve per specificare i parametri del sensore simulato -->

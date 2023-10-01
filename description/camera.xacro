@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <!-- Dunque la prima cosa che dobbiamo fare è aggiungere un giunto e un link per il sensore LIDAR,
+         questo affinchè il robot_state_publisher sappia dove sia posizionato il sensore rispetto 
+         al nostro robot    --> 
+
+        <joint name="camera_joint" type="fixed">
+            <parent link="chassis"/>
+            <child link="camera_link"/>
+            <origin xyz="0.305 0 0.08" rpy="0 0 0"/>
+        </joint>
+
+
+        <!-- nel caso la fotocamera fosse mobile o estraibile allora dovremmo considerare anche i tag di collisione e 
+             inerzia, nel nostro caso per semplicità la supponiamo fissa con il telaio-->
+        <link name="camera_link">
+            <visual>
+                <geometry>
+                    <box size="0.010 0.03 0.03"/>
+                </geometry>
+                <material name="red"/>
+            </visual>
+        </link>
+
+
+        <!-- Dobbiamo aggiungere quel link speciale che ci permette di passare dal sistema di riferimento di 
+             coordinate di ros a quello standard per le immagini di cui abbiamo parlato, quindi creiamo anche il
+             giunto per effettuare la trasformazione -->
+
+             <joint name="camera_optical_joint" type="fixed">
+                <parent link="camera_link"/>
+                <child link="camera_link_optical"/>
+                <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+            </joint>
+
+
+            <!-- Questo link non ha bisogno dei tag di visualizzazione, è un link invisibile che però è necessario-->
+            <link name="camera_link_optical"></link>
+
+
+        <!-- Adesso è importante andare ad aggiungere i tag di gazebo per far funzionare la simulazione-->
+
+        <gazebo reference="camera_link">
+
+            <material>Gazebo/Red</material>
+
+
+            <!-- aggiungiamo il tag sensor di tipo "camera" quindi che indica un sensore simulato -->
+            <sensor name="camera" type="camera">
+                <pose>0 0 0 0 0 0 </pose>   <!-- questo indica che la posizione del sensore è uguale a quella del link -->
+                <visualize>true</visualize> <!-- serve per abilitare la visualizzazione in gazebo -->
+                <update_rate>10</update_rate> <!-- espresso in secondi -->
+
+                <!-- il camera tag serve per specificare i parametri del sensore simulato -->
+                <camera>
+
+                    <horizontal_fov>1.089</horizontal_fov>  <!-- indica quanto è ingrandita l'immagine, il parametro è espresso in radianti -->
+                    
+                    <image>
+                        <format>R8G8B8</format> <!-- indica il formato dell'immagine 8bit per ogni canale R G B-->
+                        <width>640</width>
+                        <height>480</height>
+                    </image>
+
+
+                    <!-- qui indichiamo le distanze entro il quale la fotocamera può vedere -->
+                    <clip>
+                        <near>0.05</near>
+                        <far>8.0</far>
+                    </clip>
+
+                </camera>
+
+
+                <!-- ricordiamo che i plugin sono molto importanti perche permettono la comunicazione di gazebo con i
+                     programmi esterni al simulatore e quindi ros-->
+                <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+
+                    <!-- il dato dell'immagine deve essere associato al link che possiede il sistema di riferimento
+                         standard per le immagini altrimenti la vedremo capovolta, tutto ciò nonostante gazebo faccia
+                         riferimento al camera_link -->
+                    <frame_name>camera_link_optical</frame_name>
+
+                </plugin>
+
+            </sensor>
+
+
+        </gazebo>
+
+
+
+
+
+</robot>
