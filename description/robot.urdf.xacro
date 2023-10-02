@@ -18,6 +18,10 @@
 
 
     <!-- Inseriamo il file che si occuperà di far funzionare il sensore FOTOCAMERA sul nostro robot simulato -->
-    <xacro:include filename="camera.xacro"/>
+    <!-- <xacro:include filename="camera.xacro"/> -->
+
+
+    <!-- Inseriamo il file che si occuperà di far funzionare il sensore FOTOCAMERA DI PROFONDITA' sul nostro robot simulato -->
+    <xacro:include filename="depth_camera.xacro"/>
 
 </robot>
