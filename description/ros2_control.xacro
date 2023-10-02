@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <ros2_control name="GazeboSystem" type="system">
+
+        <hardware>
+
+            <!-- la plugin tag rappresenta la nostra HARDWARE INTERFACE e avrà il nome del plugin
+                 che vogliamo usare -->
+            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+
+        </hardware>
+
+
+        <!-- abbiamo bisogno di definire anche i vari giunti che saranno controllati -->
+        <joint name="left_wheel_joint">
+
+            <command_interface name="velocity">
+
+                <param name="min">-10</param>
+                <param name="max">10</param>
+
+            </command_interface>
+
+            <state_interface name="velocity"/>
+            <state_interface name="position"/>
+
+        </joint>
+
+
+        <joint name="right_wheel_joint">
+
+            <command_interface name="velocity">
+
+                <param name="min">-10</param>
+                <param name="max">10</param>
+
+            </command_interface>
+
+            <state_interface name="velocity"/>
+            <state_interface name="position"/>
+
+        </joint>
+
+    </ros2_control>
+
+
+
+
+    <!-- Adesso dobbiamo aggiungere il plugin di gazebo che gli dica di usare ROS2_control-->
+
+    <gazebo>
+        <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+
+            <parameters>$(find urobot_one)/config/my_controllers.yaml</parameters>
+
+        </plugin>
+    </gazebo>
+
+
+
+
+
+
+
+
+</robot>

@@ -10,7 +10,13 @@
     <!-- Con questa riga andremo ad includere il file che contiene le righe di codice per utilizzare il controllo 
          di Gazebo -->
 
-    <xacro:include filename="gazebo_control.xacro"/>
+    <!-- <xacro:include filename="gazebo_control.xacro"/> -->
+
+    
+    <!-- Con questa riga andremo ad includere il file che contiene le righe di codice per utilizzare il controllo 
+         di ROS2_CONTROL -->
+
+     <xacro:include filename="ros2_control.xacro"/>
 
 
     <!-- Inseriamo il file che si occuperà di far funzionare il sensore LIDAR sul nostro robot simulato -->
@@ -18,10 +24,10 @@
 
 
     <!-- Inseriamo il file che si occuperà di far funzionare il sensore FOTOCAMERA sul nostro robot simulato -->
-    <!-- <xacro:include filename="camera.xacro"/> -->
+    <xacro:include filename="camera.xacro"/>
 
 
     <!-- Inseriamo il file che si occuperà di far funzionare il sensore FOTOCAMERA DI PROFONDITA' sul nostro robot simulato -->
-    <xacro:include filename="depth_camera.xacro"/>
+    <!-- <xacro:include filename="depth_camera.xacro"/> -->
 
 </robot>
