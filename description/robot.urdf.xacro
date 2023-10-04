@@ -1,23 +1,52 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
 
+
     <!-- In questo file andremo a richiamare tutti gli altri file URDF che contengono le varie parti del robot-->
 
-    <!-- Con questa riga di codice stiamo richiamando il file che contiene la struttura di base -->
+    
+    
+     <!-- Con questa riga di codice stiamo richiamando il file che contiene la struttura di base -->
     <xacro:include filename="robot_core.xacro" />
     
 
-    <!-- Con questa riga andremo ad includere il file che contiene le righe di codice per utilizzare il controllo 
-         di Gazebo -->
-
-    <!-- <xacro:include filename="gazebo_control.xacro"/> -->
 
     
+
+
+    <!--                                         SCELTA CONTROLLO                                    -->
+    
+    
+    
+    <xacro:arg name="use_ros2_control" default="true"/>
+
+
+
+    <xacro:if value="$(arg use_ros2_control)">
+
     <!-- Con questa riga andremo ad includere il file che contiene le righe di codice per utilizzare il controllo 
          di ROS2_CONTROL -->
 
      <xacro:include filename="ros2_control.xacro"/>
 
+    </xacro:if>
+
+
+
+    <xacro:unless value="$(arg use_ros2_control)">
+
+    <!-- Con questa riga andremo ad includere il file che contiene le righe di codice per utilizzare il controllo 
+     di Gazebo -->
+
+    <xacro:include filename="gazebo_control.xacro"/>
+
+    </xacro:unless>
+
+
+
+
+
+    <!--                                           SENSORI                                                    -->
 
     <!-- Inseriamo il file che si occuperà di far funzionare il sensore LIDAR sul nostro robot simulato -->
     <xacro:include filename="lidar.xacro"/>
